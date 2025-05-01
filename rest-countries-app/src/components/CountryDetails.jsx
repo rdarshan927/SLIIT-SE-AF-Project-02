@@ -1,17 +1,49 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const CountryDetails = ({ country }) => {
-  const { name, flags, capital, region, population, languages, subregion, tld, currencies, borders } = country;
+  const { name, flags, capital, region, population, languages, subregion, tld, currencies, borders, cca3 } = country;
+  const { currentUser, toggleFavorite, isFavorite } = useAuth();
+  const isFav = isFavorite(cca3);
   
   return (
     <div className="max-w-6xl mx-auto">
-      <Link to="/" className="inline-flex items-center px-4 py-2 mb-8 bg-white dark:bg-gray-800 rounded-md shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-        </svg>
-        Back
-      </Link>
+      <div className="flex justify-between items-center mb-8">
+        <Link to="/" className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 rounded-md shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back
+        </Link>
+        
+        {currentUser && (
+          <button
+            onClick={() => toggleFavorite(cca3)}
+            className={`flex items-center px-4 py-2 rounded-md shadow-md transition-colors ${
+              isFav 
+                ? 'bg-red-500 text-white hover:bg-red-600' 
+                : 'bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
+            }`}
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              viewBox="0 0 24 24" 
+              fill={isFav ? 'currentColor' : 'none'}
+              stroke="currentColor" 
+              className="w-5 h-5 mr-2"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth="2" 
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
+              />
+            </svg>
+            {isFav ? 'Remove from Favorites' : 'Add to Favorites'}
+          </button>
+        )}
+      </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-8">
         <div className="shadow-lg rounded-lg overflow-hidden">

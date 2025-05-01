@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import FavoriteButton from "./FavoriteButton";
 
 const CountryCard = ({ country }) => {
   const { flags, name, capital, region, population, cca3 } = country;
 
   return (
-    <Link to={`/country/${cca3}`} className="block h-full">
+    <Link to={`/country/${cca3}`} className="block h-full relative">
       <div className="h-full bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
-        <div className="h-48 overflow-hidden">
+        <div className="h-48 overflow-hidden relative">
+          <FavoriteButton countryCode={cca3} />
           <img 
             src={flags.svg} 
             alt={name.common} 
