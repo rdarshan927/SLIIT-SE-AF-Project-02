@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Header from '../Header';
+import { jest } from '@jest/globals';
 
 describe('Header Component', () => {
   const mockProps = {

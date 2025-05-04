@@ -4,9 +4,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from '../../context/AuthContext';
 import Home from '../Home';
 import * as apiService from '../../services/api';
+import { jest } from '@jest/globals';
 
 // Mock the API service
-jest.mock('../../services/api');
+//jest.mock('../../services/api');
+jest.unstable_mockModule('../../services/api', () => ({
+  fetchCountries: jest.fn(),
+}));
 
 // Sample country data
 const mockCountries = [

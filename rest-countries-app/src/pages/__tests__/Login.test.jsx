@@ -1,14 +1,49 @@
+// @jest-environment jsdom
+
+// import React from 'react';
+// import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+// import { BrowserRouter } from 'react-router-dom';
+// import { AuthProvider } from '../../context/AuthContext';
+// import Login from '../Login';
+// import { jest } from '@jest/globals';
+// import * as ReactRouterDom from 'react-router-dom';
+
+// // Mock useNavigate
+// jest.mock('react-router-dom', () => {
+//   const actual = jest.importActual('react-router-dom');
+//   return {
+//     ...actual,
+//     useNavigate: () => jest.fn(),
+//   };
+// });
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from '../../context/AuthContext';
 import Login from '../Login';
+import { jest } from '@jest/globals';
+//import * as ReactRouterDom from 'react-router-dom';
+const ReactRouterDom = await import('react-router-dom');
 
 // Mock useNavigate
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => jest.fn(),
-}));
+// jest.mock('react-router-dom', () => {
+//   const actual = jest.importActual('react-router-dom');
+//   return {
+//     ...actual,
+//     useNavigate: () => jest.fn(),
+//   };
+// });
+
+jest.unstable_mockModule('react-router-dom', async () => {
+  const actual = await import('react-router-dom');
+  return {
+    ...actual,
+    useNavigate: () => jest.fn(),
+  };
+});
+// describe('Login Component', () => {
+//   // Rest of your test file...
+// });
 
 describe('Login Component', () => {
   test('renders login form correctly', () => {

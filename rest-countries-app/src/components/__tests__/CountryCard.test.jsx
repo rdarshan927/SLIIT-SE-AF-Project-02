@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import CountryCard from '../CountryCard';
 import { AuthProvider } from '../../context/AuthContext';
+import { jest } from '@jest/globals';
 
 // Mock country data
 const mockCountry = {

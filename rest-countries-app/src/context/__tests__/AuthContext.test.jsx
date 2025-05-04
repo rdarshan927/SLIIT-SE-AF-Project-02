@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { AuthProvider, useAuth } from '../AuthContext';
+import { jest } from '@jest/globals';
 
 // Test component that uses the auth context
 const TestComponent = () => {

@@ -4,9 +4,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider, useAuth } from '../../context/AuthContext';
 import Favorites from '../Favorites';
 import * as apiService from '../../services/api';
+import { jest } from '@jest/globals'; // Add this import
 
 // Mock API service
-jest.mock('../../services/api');
+//jest.mock('../../services/api');
+jest.unstable_mockModule('../../services/api', () => ({
+  fetchCountries: jest.fn(),
+}));
 
 // Custom wrapper to provide a logged-in user
 const renderWithUser = (ui, { favorites = [] } = {}) => {
